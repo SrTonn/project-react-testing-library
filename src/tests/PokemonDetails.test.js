@@ -11,10 +11,8 @@ const paragraph = new RegExp(
 );
 
 describe('Teste do componente <PokemonDetails.js />', () => {
-  beforeEach(() => {
-    renderWithRouter(<App />);
-    const moreDetails = screen.getByRole('link', { name: /more details/i });
-    userEvent.click(moreDetails);
+  beforeEach(async () => {
+    renderWithRouter(<App />, { route: '/pokemons/25' });
   });
 
   test('Verifica se as informações detalhadas do Pokémon selecionado'
