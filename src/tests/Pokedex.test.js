@@ -3,27 +3,7 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers/renderWithRouter';
-
-const pokemonList = [
-  'Pikachu',
-  'Charmander',
-  'Caterpie',
-  'Ekans',
-  'Alakazam',
-  'Mew',
-  'Rapidash',
-  'Snorlax',
-  'Dragonair',
-];
-const buttonTypeList = [
-  'Electric',
-  'Fire',
-  'Bug',
-  'Poison',
-  'Psychic',
-  'Normal',
-  'Dragon',
-];
+import pokemonList from '../data';
 
 function checkPokemonAndClickInButtonNext(pokemon) {
   const regexFindPokemon = new RegExp(pokemon, 'i');
@@ -54,13 +34,13 @@ describe('Teste do componente <Pokedex.js />', () => {
 
   test('Verifica se é exibido o próximo Pokémon da lista quando'
   + ' o botão Próximo pokémon é clicado.', () => {
-    pokemonList.forEach((pokemon) => checkPokemonAndClickInButtonNext(pokemon));
+    pokemonList.forEach(({ name }) => checkPokemonAndClickInButtonNext(name));
     const pikachu = screen.getByText(/pikachu/i);
     expect(pikachu).toBeInTheDocument();
   });
 
   test('Verifica se a Pokédex tem os botões de filtro.', () => {
-    buttonTypeList.forEach((button) => checkFilterButton(button));
+    pokemonList.forEach(({ type }) => checkFilterButton(type));
     const buttonAll = screen.getByRole('button', { name: /all/i });
     expect(buttonAll).toBeInTheDocument();
 
